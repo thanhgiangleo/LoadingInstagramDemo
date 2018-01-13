@@ -11,7 +11,7 @@ class InstagramController extends Controller
 
        $year = date('Y', 1513703700);
        $month = date('M', 1513703700);
-
+//dump($obj);
        return view('ins', ['data' => $obj->data]);
    }
 }

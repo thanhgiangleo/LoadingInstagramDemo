@@ -65,6 +65,80 @@
     <!--[if lt IE 9]>
     <script src="/js/respond.min.js"></script>
     <![endif]-->
+    <style>
+        .carousel-control {
+            width: 4%;
+        }
+
+        .carousel-control.left, .carousel-control.right {
+            margin-left: 15px;
+            background-image: none;
+        }
+
+        @media (max-width: 767px) {
+            .carousel-inner .active.left {
+                left: -100%;
+            }
+
+            .carousel-inner .next {
+                left: 100%;
+            }
+
+            .carousel-inner .prev {
+                left: -100%;
+            }
+
+            .active > div {
+                display: none;
+            }
+
+            .active > div:first-child {
+                display: block;
+            }
+
+        }
+
+        @media (min-width: 767px) and (max-width: 992px ) {
+            .carousel-inner .active.left {
+                left: -50%;
+            }
+
+            .carousel-inner .next {
+                left: 50%;
+            }
+
+            .carousel-inner .prev {
+                left: -50%;
+            }
+
+            .active > div {
+                display: none;
+            }
+
+            .active > div:first-child {
+                display: block;
+            }
+
+            .active > div:first-child + div {
+                display: block;
+            }
+        }
+
+        @media (min-width: 992px ) {
+            .carousel-inner .active.left {
+                left: -25%;
+            }
+
+            .carousel-inner .next {
+                left: 25%;
+            }
+
+            .carousel-inner .prev {
+                left: -25%;
+            }
+        }
+
+    </style>
 
 </head>
 <body>
@@ -94,49 +168,81 @@
         </div>
     </header>
 
+    <?php
+    $year = 0;
+    $month = 0;
+    ?>
+
     @for($i = 0; $i < count($data); $i++)
         <?php
         abc:
+        if(date('Y', $data[$i]->created_time != $year && $data[$i]->created_time != $month)):
 
+        $carouselId = $data[$i]->created_time;
         $year = date('Y', $data[$i]->created_time);
         $month = date('M', $data[$i]->created_time);
         ?>
-    <div id="fh5co-intro-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 text-center animate-box">
-                    {{--<h2 class="intro-heading">Our Gallery &amp; Collection</h2>--}}
-                    <p><span><?php echo $month . ' - ' . $year ?></span></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="fh5co-photos-section">
-        <div class="container">
-            <div class="row text-center">
-                @for($j = $i; $j < count($data); $j++)
-                    <?php
-                    $item_year = date('Y', $data[$j]->created_time);
-                    $item_month = date('M', $data[$j]->created_time);
 
-                    if($item_year != $year || $item_month != $month)
-                        {
-                            $i = $j;
-                            goto abc;
-                        }
-                    ?>
-                <div class="col-md-4 animate-box">
-                    <a href='<?php echo $data[$j]->images->standard_resolution->url ?>' data-link="<?php echo $data[$j]->link?>" class="grid-photo img-popup" style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
-                        {{--<div class="desc">--}}
-                            {{--<h3>Camera</h3>--}}
-                            {{--<span>12 Photos</span>--}}
-                        {{--</div>--}}
-                    </a>
+        <div id="fh5co-intro-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 text-center animate-box">
+                        {{--<h2 class="intro-heading">Our Gallery &amp; Collection</h2>--}}
+                        <p><span><?php echo $month . ' - ' . $year ?></span></p>
+                    </div>
                 </div>
-                @endfor
             </div>
         </div>
-    </div>
+
+        <div id="fh5co-photos-section">
+            <div class="container">
+                <div class="row text-center">
+
+                    <div class="carousel " data-ride="carousel" data-type="multi"  data-interval="false"
+                         id="myCarousel<?php echo $carouselId ?>">
+                        <div class="carousel-inner">
+                            <?php $count = 0; ?>
+                            @for($j = $i; $j < count($data); $j++)
+                                <?php
+                                $item_year = date('Y', $data[$j]->created_time);
+                                $item_month = date('M', $data[$j]->created_time);
+
+                                if($item_year != $year || $item_month != $month):
+                                    $i = $j; ?>
+                        </div>
+
+                        <?php if($count > 3) : ?>
+                            <a class="left carousel-control" href="#myCarousel<?php echo $carouselId ?>"
+                               data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                            <a class="right carousel-control" href="#myCarousel<?php echo $carouselId ?>"
+                               data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        <?php endif; ?>
+                    </div>
+
+                    <?php
+                        goto abc;
+                        endif;
+                    ?>
+
+                    <div class="item <?php if($count == 0) echo 'active' ?>">
+                        <?php $count++ ?>
+                        <div class="col-md-4">
+                            <a href='<?php echo $data[$j]->images->standard_resolution->url ?>'
+                               data-link="<?php echo $data[$j]->link?>" class="grid-photo img-popup"
+                               style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
+                                {{--<div class="desc">--}}
+                                {{--<h3>Camera</h3>--}}
+                                {{--<span>12 Photos</span>--}}
+                                {{--</div>--}}
+                            </a>
+                        </div>
+                    </div>
+                    @endfor
+
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
     @endfor
     <footer>
         <div id="footer">
@@ -227,6 +333,25 @@
 
 <!-- Main JS (Do not remove) -->
 <script src="js/main.js"></script>
+
+<script>
+    $('.carousel[data-type="multi"] .item').each(function () {
+        var next = $(this).next();
+        if (!next.length) {
+            next = $(this).siblings(':first');
+        }
+        next.children(':first-child').clone().appendTo($(this));
+
+        for (var i = 0; i < 1; i++) {
+            next = next.next();
+            if (!next.length) {
+                next = $(this).siblings(':first');
+            }
+
+            next.children(':first-child').clone().appendTo($(this));
+        }
+    });
+</script>
 
 </body>
 </html>
