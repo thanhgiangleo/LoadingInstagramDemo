@@ -93,13 +93,20 @@
             </div>
         </div>
     </header>
+
+    @for($i = 0; $i < count($data); $i++)
+        <?php
+        abc:
+
+        $year = date('Y', $data[$i]->created_time);
+        $month = date('M', $data[$i]->created_time);
+        ?>
     <div id="fh5co-intro-section">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2 text-center animate-box">
-                    <h2 class="intro-heading">Our Gallery &amp; Collection</h2>
-                    <p><span>Created with <i class="icon-heart3"></i> by the fine folks at <a
-                                    href="http://freehtml5.co">FreeHTML5.co</a></span></p>
+                    {{--<h2 class="intro-heading">Our Gallery &amp; Collection</h2>--}}
+                    <p><span><?php echo $month . ' - ' . $year ?></span></p>
                 </div>
             </div>
         </div>
@@ -107,21 +114,30 @@
     <div id="fh5co-photos-section">
         <div class="container">
             <div class="row text-center">
-                {{--$item->images->standard_resolution->url--}}
-                @foreach($data as $item)
-<!--                    --><?php //var_dump($item->images->standard_resolution->url); ?>
-                    <div class="col-md-4 animate-box">
-                        <a href='<?php echo $item->images->standard_resolution->url ?>' data-link="<?php echo $item->link?>" class="grid-photo img-popup" style="background-image: url('<?php echo $item->images->standard_resolution->url ?>');">
-                            {{--<div class="desc">--}}
-                                {{--<h3>Camera</h3>--}}
-                                {{--<span>12 Photos</span>--}}
-                            {{--</div>--}}
-                        </a>
-                    </div>
-                @endforeach
+                @for($j = $i; $j < count($data); $j++)
+                    <?php
+                    $item_year = date('Y', $data[$j]->created_time);
+                    $item_month = date('M', $data[$j]->created_time);
+
+                    if($item_year != $year || $item_month != $month)
+                        {
+                            $i = $j;
+                            goto abc;
+                        }
+                    ?>
+                <div class="col-md-4 animate-box">
+                    <a href='<?php echo $data[$j]->images->standard_resolution->url ?>' data-link="<?php echo $data[$j]->link?>" class="grid-photo img-popup" style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
+                        {{--<div class="desc">--}}
+                            {{--<h3>Camera</h3>--}}
+                            {{--<span>12 Photos</span>--}}
+                        {{--</div>--}}
+                    </a>
+                </div>
+                @endfor
             </div>
         </div>
     </div>
+    @endfor
     <footer>
         <div id="footer">
             <div class="container">
