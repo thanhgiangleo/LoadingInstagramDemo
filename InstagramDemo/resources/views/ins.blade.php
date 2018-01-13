@@ -176,8 +176,6 @@
     @for($i = 0; $i < count($data); $i++)
         <?php
         abc:
-        if(date('Y', $data[$i]->created_time != $year && $data[$i]->created_time != $month)):
-
         $carouselId = $data[$i]->created_time;
         $year = date('Y', $data[$i]->created_time);
         $month = date('M', $data[$i]->created_time);
@@ -211,38 +209,36 @@
                                     $i = $j; ?>
                         </div>
 
-                        <?php if($count > 3) : ?>
-                            <a class="left carousel-control" href="#myCarousel<?php echo $carouselId ?>"
-                               data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                            <a class="right carousel-control" href="#myCarousel<?php echo $carouselId ?>"
-                               data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                        <?php endif; ?>
+                                    <?php if($count > 3) : ?>
+                                        <a class="left carousel-control" href="#myCarousel<?php echo $carouselId ?>"
+                                           data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                                        <a class="right carousel-control" href="#myCarousel<?php echo $carouselId ?>"
+                                           data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                                    <?php endif; ?>
                     </div>
 
-                    <?php
-                        goto abc;
-                        endif;
-                    ?>
+                                    <?php
+                                        goto abc;
+                                        endif;
+                                    ?>
 
-                    <div class="item <?php if($count == 0) echo 'active' ?>">
-                        <?php $count++ ?>
-                        <div class="col-md-4">
-                            <a href='<?php echo $data[$j]->images->standard_resolution->url ?>'
-                               data-link="<?php echo $data[$j]->link?>" class="grid-photo img-popup"
-                               style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
-                                {{--<div class="desc">--}}
-                                {{--<h3>Camera</h3>--}}
-                                {{--<span>12 Photos</span>--}}
-                                {{--</div>--}}
-                            </a>
-                        </div>
-                    </div>
-                    @endfor
-
+                                <div class="item <?php if($count == 0) echo 'active' ?>">
+                                    <?php $count++; ?>
+                                    <div class="col-md-4">
+                                        <a href='<?php echo $data[$j]->images->standard_resolution->url; ?>'
+                                           data-link="<?php echo $data[$j]->link?>" class="grid-photo img-popup"
+                                           style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
+                                            {{--<div class="desc">--}}
+                                            {{--<h3>Camera</h3>--}}
+                                            {{--<span>12 Photos</span>--}}
+                                            {{--</div>--}}
+                                        </a>
+                                    </div>
+                                </div>
+                            @endfor
                 </div>
             </div>
         </div>
-        <?php endif; ?>
     @endfor
     <footer>
         <div id="footer">
