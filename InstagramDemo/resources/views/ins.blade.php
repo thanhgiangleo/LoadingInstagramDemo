@@ -223,15 +223,19 @@
                                     ?>
 
                                 <div class="item <?php if($count == 0) echo 'active' ?>">
-                                    <?php $count++; ?>
+                                    <?php
+                                        $count++;
+                                        $link_app = str_replace('https://www.instagram.com/', 'instagram://', $data[$j]->link);
+                                    ?>
                                     <div class="col-md-4">
                                         <a href='<?php echo $data[$j]->images->standard_resolution->url; ?>'
-                                           data-link="<?php echo $data[$j]->link?>" class="grid-photo img-popup"
+                                           data-link="<?php echo $data[$j]->link?>" data-link-app="<?php echo $link_app ?>" class="grid-photo img-popup"
                                            style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
                                             {{--<div class="desc">--}}
                                             {{--<h3>Camera</h3>--}}
                                             {{--<span>12 Photos</span>--}}
                                             {{--</div>--}}
+                                            {{--<a href="instagram://user?username=untitled.tiff">untitled.tiff</a>--}}
                                         </a>
                                     </div>
                                 </div>

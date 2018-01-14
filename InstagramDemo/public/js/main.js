@@ -106,10 +106,11 @@
 			event.preventDefault();
 			var src = $(this).attr('href');
 			var link = $(this).attr('data-link');
+			var link_app = $(this).attr('data-link-app');
 
 			var html = '';
         	html += '<div class="mfp-figure"><button title="Close (Esc)" type="button" class="mfp-close">×</button><figure>';
-        	html += '<img class="mfp-img" src=' + src + ' data-link=' + link + ' style="max-height: 576px;"><figcaption>';
+        	html += '<img class="mfp-img" src=' + src + ' data-link=' + link + ' data-link-app=' + link_app + ' style="max-height: 576px;"><figcaption>';
         	html += '<div class="mfp-bottom-bar"><div class="mfp-title"></div><div class="mfp-counter"></div></div></figcaption></figure></div>';
 
 			$.magnificPopup.open({
@@ -123,7 +124,15 @@
 		});
 
         $('body').on('click', '.mfp-img', function(event){
-            var url = $(this).attr('data-link');
+            if (/Mobi/.test(navigator.userAgent)) {
+                // mobile!
+                var url = $(this).attr('data-link-app');
+            }
+            else
+			{
+                var url = $(this).attr('data-link');
+            }
+
             openInNewTab(url);
         });
 	};
