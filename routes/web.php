@@ -11,8 +11,15 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('index');
+});
 
-Route::get('/', 'InstagramController@index');
+Route::get('/ins', 'InstagramController@index');
+Route::get('/{lang}/post/{slug}', 'PostController@index');
+Route::get('/{lang}/post/add', 'PostController@insert');
+
+Route::get('/{lang}/admin/view/{slug}', 'AdminController@update');
+Route::post('/updatePostAction/{id}', 'AdminController@updatePostAction');
+Route::get('/{lang}/admin/insert', 'AdminController@insert');
+Route::post('/insertPostAction', 'AdminController@insertPostAction');
