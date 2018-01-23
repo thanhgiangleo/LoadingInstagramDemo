@@ -7,6 +7,7 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900|Varela+Round" rel="stylesheet" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="{{ asset("css/default.css") }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset("css/fonts.css") }}" rel="stylesheet" type="text/css" media="all" />
     <link href="{{ asset("css/stylef2b5.css") }}" rel="stylesheet" type="text/css" media="all" />

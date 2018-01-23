@@ -25,22 +25,6 @@
     </div>
 
     @include("partials.footer")
-
-    <script type="text/javascript" src="{{ asset("js/jquery.min.js") }}"></script>
-    <script type="text/javascript" src="{{ asset("js/responsiveCarousel.min.js") }}"></script>
-    <script>
-        $(function(){
-            $('.crsl-items').carousel({
-                visible: 3,
-                itemMinWidth: 180,
-                itemEqualHeight: 370,
-                itemMargin: 9
-            });
-
-            $("a[href=#]").on('click', function(e) {
-                e.preventDefault();
-            });
-        });
-    </script>
+    @include("partials.endpage")
 </body>
 </html>

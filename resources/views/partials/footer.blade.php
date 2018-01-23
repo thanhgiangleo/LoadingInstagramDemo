@@ -1,37 +1,60 @@
-<div id="w">
-    <div class="crsl-items" data-navigation="navbtns">
-        <div class="crsl-wrap">
-            <div class="crsl-item">
-                <h3><a href="#">Lorem Ipsum Dolor Sit</a></h3>
-                <p>Suspendisse laoreet eu tortor vel dapibus. Etiam auctor nisl mattis, ornare nibh eu, lobortis leo. Sed congue mi eget velit dictum, id dictum massa tempus. Cras lobortis lectus neque. Fusce aliquet mauris ac bibendum pharetra.</p>
-            </div><!-- post #1 -->
+<div class="w3-container" style="margin: 0 auto; text-align: center; background-color: rgb(232,233,234)">
+    <div style="padding-top: 30px; padding-bottom: 50px;">
+        <h2>MEMORIES</h2>
+    </div>
 
-            <div class="crsl-item">
-                <h3><a href="#">Lorem Ipsum Dolor Sit</a></h3>
-                <p>Suspendisse laoreet eu tortor vel dapibus. Etiam auctor nisl mattis, ornare nibh eu, lobortis leo. Sed congue mi eget velit dictum, id dictum massa tempus. Cras lobortis lectus neque. Fusce aliquet mauris ac bibendum pharetra.</p>
-            </div><!-- post #1 -->
-
-            <div class="crsl-item">
-                <h3><a href="#">Lorem Ipsum Dolor Sit</a></h3>
-                <p>Suspendisse laoreet eu tortor vel dapibus. Etiam auctor nisl mattis, ornare nibh eu, lobortis leo. Sed congue mi eget velit dictum, id dictum massa tempus. Cras lobortis lectus neque. Fusce aliquet mauris ac bibendum pharetra.</p>
-            </div><!-- post #1 -->
-
-            <div class="crsl-item">
-                <h3><a href="#">Lorem Ipsum Dolor Sit</a></h3>
-                <p>Suspendisse laoreet eu tortor vel dapibus. Etiam auctor nisl mattis, ornare nibh eu, lobortis leo. Sed congue mi eget velit dictum, id dictum massa tempus. Cras lobortis lectus neque. Fusce aliquet mauris ac bibendum pharetra.</p>
-            </div><!-- post #1 -->
-
-            <div class="crsl-item">
-                <h3><a href="#">Lorem Ipsum Dolor Sit</a></h3>
-                <p>Suspendisse laoreet eu tortor vel dapibus. Etiam auctor nisl mattis, ornare nibh eu, lobortis leo. Sed congue mi eget velit dictum, id dictum massa tempus. Cras lobortis lectus neque. Fusce aliquet mauris ac bibendum pharetra.</p>
-            </div><!-- post #1 -->
-        </div><!-- @end .crsl-wrap -->
-    </div><!-- @end .crsl-items -->
-
-    <nav class="slidernav">
-        <div id="navbtns" class="clearfix">
-            <a href="#" class="previous">prev</a>
-            <a href="#" class="next">next</a>
+    <div class="w3-content w3-display-container">
+        <div class="mySlides">
+            <div class="w3-cell-row">
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>January 2018</p>
+                    <p>December 2017</p>
+                    <p>November 2017</p>
+                    <p>October 2017</p>
+                </div>
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                </div>
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                </div>
+            </div>
         </div>
-    </nav>
-</div><!-- @end #w -->
+
+        <div class="mySlides">
+            <div class="w3-cell-row">
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                </div>
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                </div>
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                </div>
+            </div>
+        </div>
+        <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+        <button class="w3-button w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+    </div>
+    <div style="text-align: center; padding: 30px">
+        <hr width="60%" style="display: block;margin-top: 0.2em;margin-bottom: 0.5em;margin-left: auto;margin-right: auto;border-style: inset;border: 1px solid #000;">
+        <p>Copyright (C) 2017</p>
+        <h3>Le Journal by Odette</h3>
+    </div>
+</div>
