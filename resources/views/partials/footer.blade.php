@@ -24,11 +24,23 @@
                     <p>January 2017</p>
                     <p>January 2017</p>
                 </div>
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                    <p>January 2017</p>
+                </div>
             </div>
         </div>
 
         <div class="mySlides">
             <div class="w3-cell-row">
+                <div class="w3-container w3-cell w3-cell-top">
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                    <p>Hello W3.CSS Layout.</p>
+                </div>
                 <div class="w3-container w3-cell w3-cell-top">
                     <p>Hello W3.CSS Layout.</p>
                     <p>Hello W3.CSS Layout.</p>
