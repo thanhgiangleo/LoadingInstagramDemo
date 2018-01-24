@@ -6,6 +6,14 @@ use Carbon\Carbon;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        session_start();
+
+        if(!isset($_SESSION['isADMIN']))
+            return view('404');
+    }
+
     public function insert($lang)
     {
         return view('admin.post-insert');

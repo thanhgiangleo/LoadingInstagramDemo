@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    public function index($lang, $slug)
+    public function index($lang, $category)
     {
         $category = DB::table('posts')
-            ->where('cat_slug', $slug)
-            ->join('posts_lang', 'posts.id', '=', 'posts_lang.id_post')
+            ->where('cat_slug', $category)
+            ->join('posts_lang', 'posts.slug', '=', 'posts_lang.slug')
             ->where('posts_lang.lang', $lang)
             ->get();
 

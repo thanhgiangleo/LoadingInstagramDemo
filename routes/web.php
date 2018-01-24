@@ -16,8 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('/ins', 'InstagramController@index');
+
+Route::get('/{lang}/category/{category}', 'CategoryController@index');
 Route::get('/{lang}/post/{slug}', 'PostController@index');
 Route::get('/{lang}/post/add', 'PostController@insert');
+
+Route::get('/login', 'HomeController@login');
+Route::post('/login', 'HomeController@login');
 
 Route::get('/{lang}/admin/view/{slug}', 'AdminController@update');
 Route::post('/updatePostAction/{id}', 'AdminController@updatePostAction');
