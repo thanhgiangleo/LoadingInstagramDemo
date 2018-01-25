@@ -406,7 +406,6 @@ nav a#pull {
 /** media queries **/
 @media screen and (max-width: 660px) {
     h1 { font-size: 2.4em; line-height: 1.2em; }
-
     .crsl-item h3 { font-size: 1.65em; }
 }
 
