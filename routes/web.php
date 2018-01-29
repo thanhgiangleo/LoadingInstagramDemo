@@ -29,5 +29,9 @@ Route::post('/updatePostAction/{id}', 'AdminController@updatePostAction');
 Route::get('/{lang}/admin/insert', 'AdminController@insert');
 Route::post('/insertPostAction', 'AdminController@insertPostAction');
 
+Route::get('{lang}/instagram', 'InstagramController@view');
 Route::get('{lang}/instagram/insert', 'InstagramController@insert');
-Route::post('{lang}/instagram/insert', 'InstagramController@insert');
+Route::get('{lang}/instagram/update/{id}', 'InstagramController@update');
+Route::post('/updateInstagramAction/{id}', 'AdminController@updatePostAction');
+Route::post('/insertInstagramAction', 'InstagramController@insertInstagramAction');
+Route::post('/deleteInstagramAction/{id}', 'InstagramController@deleteInstagramDB');

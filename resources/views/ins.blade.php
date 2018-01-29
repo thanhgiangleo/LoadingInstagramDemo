@@ -176,9 +176,9 @@
     @for($i = 0; $i < count($data); $i++)
         <?php
         abc:
-        $carouselId = $data[$i]->created_time;
-        $year = date('Y', $data[$i]->created_time);
-        $month = date('M', $data[$i]->created_time);
+        $carouselId = $data[$i]->id;
+        $year = $data[$i]->year;
+        $month = $data[$i]->month;
         ?>
 
         <div id="fh5co-intro-section">
@@ -202,8 +202,8 @@
                             <?php $count = 0; ?>
                             @for($j = $i; $j < count($data); $j++)
                                 <?php
-                                $item_year = date('Y', $data[$j]->created_time);
-                                $item_month = date('M', $data[$j]->created_time);
+                                $item_year = $data[$j]->year;
+                                $item_month = $data[$j]->month;
 
                                 if($item_year != $year || $item_month != $month):
                                     $i = $j; ?>
@@ -228,9 +228,9 @@
                                         $link_app = str_replace('https://www.instagram.com/', 'instagram://', $data[$j]->link);
                                     ?>
                                     <div class="col-md-4">
-                                        <a href='<?php echo $data[$j]->images->standard_resolution->url; ?>'
+                                        <a href='<?php echo $data[$j]->image; ?>'
                                            data-link="<?php echo $data[$j]->link?>" data-link-app="<?php echo $link_app ?>" class="grid-photo img-popup"
-                                           style="background-image: url('<?php echo $data[$j]->images->standard_resolution->url ?>');">
+                                           style="background-image: url('<?php echo $data[$j]->image ?>');">
                                             {{--<div class="desc">--}}
                                             {{--<h3>Camera</h3>--}}
                                             {{--<span>12 Photos</span>--}}
