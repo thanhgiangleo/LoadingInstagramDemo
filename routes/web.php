@@ -28,3 +28,6 @@ Route::get('/{lang}/admin/view/{slug}', 'AdminController@update');
 Route::post('/updatePostAction/{id}', 'AdminController@updatePostAction');
 Route::get('/{lang}/admin/insert', 'AdminController@insert');
 Route::post('/insertPostAction', 'AdminController@insertPostAction');
+
+Route::get('{lang}/instagram/insert', 'InstagramController@insert');
+Route::post('{lang}/instagram/insert', 'InstagramController@insert');

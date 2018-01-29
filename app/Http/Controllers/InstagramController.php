@@ -34,4 +34,9 @@ class InstagramController extends Controller
 //dump($obj);
         return view('ins', ['data' => $obj->data]);
     }
+
+    public function insert()
+    {
+        return view('instagram.insert');
+    }
 }
