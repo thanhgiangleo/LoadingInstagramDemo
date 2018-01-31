@@ -38,6 +38,18 @@ class InstagramController extends Controller
         return view('instagram.index', ['data' => $data]);
     }
 
+    public function viewByMonth($lang, $monthName, $year)
+    {
+        $data = DB::table('instagram')
+            ->where('year', $year)
+            ->where('monthName', $monthName)
+            ->get();
+
+        config(['app.locale' => $lang]);
+        dump($data);
+        return view('instagram.index', ['data' => $data]);
+    }
+
     public function insert()
     {
         return view('instagram.insert');
@@ -87,6 +99,8 @@ class InstagramController extends Controller
         $arrDate = explode("/", $date);
         $create_date = Carbon::now();
 
+        $monthName = date('F', mktime(0, 0, 0, $arrDate[1], 10));
+
         DB::table('instagram')->insert([
             'idInstagram' => $idIns,
             'image' => $image,
@@ -94,7 +108,8 @@ class InstagramController extends Controller
             'day' => $arrDate[0],
             'month' => $arrDate[1],
             'year' => $arrDate[2],
-            'create_date' => $create_date
+            'create_date' => $create_date,
+            'monthName' => $monthName
         ]);
     }
 

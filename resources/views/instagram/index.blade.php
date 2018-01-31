@@ -1,3 +1,5 @@
+{{         trans('lang.failed') }}
+
 <table>
     <tr>
         <th>Id</th>
