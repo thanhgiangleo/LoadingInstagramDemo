@@ -10,8 +10,8 @@ class AdminController extends Controller
     {
         session_start();
 
-        if(!isset($_SESSION['isADMIN']))
-            return view('404');
+//        if(!isset($_SESSION['isADMIN']))
+//            return view('404');
     }
 
     public function insert($lang)

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -27,7 +28,7 @@ class PostController extends Controller
         $title = 'test-title';
         $description = 'test-des';
         $cat_slug = 'test-cat';
-        $create_date = \Carbon::now();
+        $create_date = Carbon::now();
 
         DB::table('posts')->insert([
             'slug' => $slug,

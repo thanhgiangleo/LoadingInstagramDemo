@@ -12,14 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
-Route::get('/ins', 'InstagramController@index');
+
+Route::get('/{lang}', 'CategoryController@index');
+
+Route::get('/{lang}/gallery', 'InstagramController@index');
 
 Route::get('/{lang}/category/{category}', 'CategoryController@index');
-Route::get('/{lang}/post/{slug}', 'PostController@index');
-Route::get('/{lang}/post/add', 'PostController@insert');
+//Route::get('/{lang}/post/add', 'PostController@insert');
+//Route::get('/{lang}/post/{slug}', 'PostController@index');
 
 Route::get('/login', 'HomeController@login');
 Route::post('/login', 'HomeController@login');

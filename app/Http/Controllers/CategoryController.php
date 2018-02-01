@@ -5,7 +5,21 @@ use Illuminate\Support\Facades\DB;
 
 class CategoryController extends Controller
 {
-    public function index($lang, $category)
+    public function index($lang)
+    {
+        $page = 0;
+        if(isset($_GET['page'])) {
+            $page = $_GET['page'];
+        }
+        $posts = DB::table('posts')
+            ->join('posts_lang', 'posts.slug', '=', 'posts_lang.slug')
+            ->where('posts_lang.lang', $lang)->skip($page * 5)->take(5)
+            ->get();
+
+        return view('index', ['posts' => $posts, 'page' => $page]);
+    }
+
+    public function category($lang, $category)
     {
         $category = DB::table('posts')
             ->where('cat_slug', $category)

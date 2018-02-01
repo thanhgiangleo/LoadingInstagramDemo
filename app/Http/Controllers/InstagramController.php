@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 class InstagramController extends Controller
 {
-    public function index()
+    public function index($lang)
     {
         $url = 'https://api.instagram.com/v1/users/2207028252/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2&count=-1&min_id=1580209093870638599_2207028252';
         $json = file_get_contents($url);
@@ -26,7 +26,6 @@ class InstagramController extends Controller
         }
 
         $data = $this->getAll();
-//        dump($data); die();
         return view('ins', ['data' => $data]);
     }
 
