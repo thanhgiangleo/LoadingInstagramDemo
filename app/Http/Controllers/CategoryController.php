@@ -7,6 +7,8 @@ class CategoryController extends Controller
 {
     public function index($lang)
     {
+        config(['app.locale' => $lang]);
+
         $page = 0;
         if(isset($_GET['page'])) {
             $page = $_GET['page'];
@@ -16,11 +18,13 @@ class CategoryController extends Controller
             ->where('posts_lang.lang', $lang)->skip($page * 5)->take(5)
             ->get();
 
-        return view('index', ['posts' => $posts, 'page' => $page]);
+        return view('index', ['posts' => $posts, 'page' => $page, '']);
     }
 
     public function category($lang, $category)
     {
+        config(['app.locale' => $lang]);
+
         $category = DB::table('posts')
             ->where('cat_slug', $category)
             ->join('posts_lang', 'posts.slug', '=', 'posts_lang.slug')

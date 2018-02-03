@@ -7,18 +7,31 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
+    private $dataFootter = '';
+    public function __construct()
+    {
+        $this->dataFootter = $this->getFooter();
+
+//        if(!isset($_SESSION['isADMIN']))
+//            return view('404');
+    }
+
     public function index($lang, $slug)
     {
-        $post = DB::table('posts')
-            ->where('slug', $slug)
-            ->join('posts_lang', 'posts.id', '=', 'posts_lang.id_post')
-            ->where('posts_lang.lang', $lang)
-            ->get();
+        config(['app.locale' => $lang]);
 
-//        $post = DB::table('posts')->where('slug', $slug)->first();
-        var_dump($post);
-        die();
-//        return view('ins', ['data' => $obj->data]);
+        $post = DB::table('posts')
+            ->join('posts_lang', 'posts.slug', '=', 'posts_lang.slug')
+            ->where('posts_lang.lang', $lang)
+            ->where('posts.slug', $slug)
+            ->first();
+
+        $post->slug = $slug;
+
+        $previousUrl= DB::table('posts')->where('id', '<', $post->id)->first();
+        $nextUrl = DB::table('posts')->where('id', '>', $post->id)->first();
+
+        return view('post-detail', ['post' => $post, 'preUrl' => @$previousUrl->slug, 'nextUrl' => @$nextUrl->slug, 'dataFooter' => $this->dataFootter]);
     }
 
     public function insert()

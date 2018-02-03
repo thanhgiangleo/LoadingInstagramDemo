@@ -39,3 +39,6 @@ Route::get('{lang}/instagram/update/{id}', 'InstagramController@update');
 Route::post('/updateInstagramAction/{id}', 'AdminController@updatePostAction');
 Route::post('/insertInstagramAction', 'InstagramController@insertInstagramAction');
 Route::post('/deleteInstagramAction/{id}', 'InstagramController@deleteInstagramDB');
+
+Route::get('/{lang}/{slug}', 'PostController@index');
+

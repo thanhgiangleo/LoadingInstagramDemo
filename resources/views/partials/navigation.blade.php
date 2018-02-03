@@ -12,7 +12,7 @@
 <div class="row">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="<?php echo config('app.locale') ?>/">Home</a></li>
+            <li><a href="<?php echo config('app.locale') ?>">Home</a></li>
             <li><a href="<?php echo config('app.locale') ?>/travel">Travel</a></li>
             <li><a href="<?php echo config('app.locale') ?>/foodie">Foodie</a></li>
             <li><a href="<?php echo config('app.locale') ?>/cooking">Cooking</a></li>

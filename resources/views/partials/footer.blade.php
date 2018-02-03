@@ -3,70 +3,71 @@
         <h2>MEMORIES</h2>
     </div>
 
+    <?php $countLength = 0; ?>
     <div class="w3-content w3-display-container">
         <div class="mySlides">
             <div class="w3-cell-row">
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>January 2018</p>
-                    <p>December 2017</p>
-                    <p>November 2017</p>
-                    <p>October 2017</p>
-                </div>
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                </div>
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                </div>
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                    <p>January 2017</p>
-                </div>
-            </div>
-        </div>
+                @foreach ($dataFooter as $index => $item)
+                    <?php $countLength = $index; ?>
 
+                    @if($index % 4 == 0)
+                        <div class="w3-container w3-cell w3-cell-top">
+                            @endif
+                            <?php $monthName = date('F', mktime(0, 0, 0, $item->month, 10)); ?>
+                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}"><p>{{ $monthName .  ' ' . $item->year }}</p></a>
+                            @if($index % 4 == 3)
+                        </div>
+                    @endif
+                    @if($countLength > 15): @break; @endif
+
+                @endforeach
+
+
+                @if($countLength % 4 != 3)
+            </div>
+            @endif
+        </div>
+    </div>
+
+    @if($countLength < count($dataFooter) - 1)
+        <?php
+        unset($dataFooter[key($countLength)]);
+        $countLength = 0;
+        ?>
         <div class="mySlides">
             <div class="w3-cell-row">
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                </div>
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                </div>
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                </div>
-                <div class="w3-container w3-cell w3-cell-top">
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                    <p>Hello W3.CSS Layout.</p>
-                </div>
+                @foreach ($dataFooter as $index => $item)
+                    <?php $countLength = $index; ?>
+
+                    @if($index % 4 == 0)
+                        <div class="w3-container w3-cell w3-cell-top">
+                            @endif
+                            <?php $monthName = date('F', mktime(0, 0, 0, $item->month, 10)); ?>
+                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}"><p>{{ $monthName .  ' ' . $item->year }}</p></a>
+                            @if($index % 4 == 3)
+                        </div>
+                    @endif
+                    @if($countLength > 15): @break; @endif
+
+                @endforeach
+
+
+                @if($countLength % 4 != 3)
             </div>
+            @endif
         </div>
-        <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-        <button class="w3-button w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+</div>
+@endif
+
+@if($countLength < count($dataFooter) - 1)
+    <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
+    <button class="w3-button w3-display-right" onclick="plusDivs(1)">&#10095;</button>
+    @endif
     </div>
     <div style="text-align: center; padding: 30px">
-        <hr width="60%" style="display: block;margin-top: 0.2em;margin-bottom: 0.5em;margin-left: auto;margin-right: auto;border-style: inset;border: 1px solid #000;">
+        <hr width="60%"
+            style="display: block;margin-top: 0.2em;margin-bottom: 0.5em;margin-left: auto;margin-right: auto;border-style: inset;border: 1px solid #000;">
         <p>Copyright (C) 2017</p>
         <h3>Le Journal by Odette</h3>
     </div>
-</div>
+    </div>

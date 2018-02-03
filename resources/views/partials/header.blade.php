@@ -7,10 +7,10 @@
                     <input type="email" placeholder="Your Email" /><br>
                     <input type="button" value="Yes, I'm in" /><br>
                     <form action="">
-                        <input type="radio" name="lang" value="english">
+                        <input type="radio" name="lang" onclick="handleClick(this);" value="en" <?php if(config('app.locale') == 'en') echo 'checked' ?>>
                         <img src="{{ asset("images/uk.png") }}">
                         English
-                        <input type="radio" name="lang" value="thailand">
+                        <input type="radio" name="lang" onclick="handleClick(this);" value="tha" <?php if(config('app.locale') == 'tha') echo 'checked' ?>>
                         <img src="{{ asset("images/thailand.png") }}">
                         Thailand<br>
                     </form>
@@ -50,3 +50,28 @@
         </div>
     </div>
 </div>
+
+<script>
+    function handleClick(lang) {
+        var currentUrl = document.location.href;
+
+        var protocol = document.location.protocol; //"http:"
+        var host = document.location.hostname;  // "stackoverflow.com",
+
+        var domain = protocol + '//' + host + ':8000';
+
+        if(lang.value == 'en') {
+            if(currentUrl.indexOf(domain + '/tha') !== -1) {
+                var newUrl = currentUrl.replace(domain + '/tha', domain + '/en');
+                window.location.href = newUrl;
+            }
+        }
+
+        if(lang.value == 'tha') {
+            if(currentUrl.indexOf(domain + '/en') !== -1) {
+                var newUrl = currentUrl.replace(domain + '/en', domain + '/tha');
+                window.location.href = newUrl;
+            }
+        }
+    }
+</script>
