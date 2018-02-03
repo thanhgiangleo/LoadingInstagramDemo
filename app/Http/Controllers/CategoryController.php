@@ -18,7 +18,7 @@ class CategoryController extends Controller
             ->where('posts_lang.lang', $lang)->skip($page * 5)->take(5)
             ->get();
 
-        return view('index', ['posts' => $posts, 'page' => $page, '']);
+        return view('index', ['posts' => $posts, 'page' => $page, 'dataFooter' => $this->getFooter()]);
     }
 
     public function category($lang, $category)

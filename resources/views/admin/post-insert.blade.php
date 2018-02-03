@@ -6,6 +6,8 @@
 <div class="container-fluid">
     @include("partials.header")
     @include("partials.navigation")
+    @include("partials.about")
+    @include("admin.navigation")
 
     <div class="w3-container" style="margin: 0 auto; text-align: justify;">
         <form class="form-signin" method="POST" <?php !empty($post) ? print "action=\"/updatePostAction/$post->id\"" : print "action=\"/insertPostAction\"" ?>>
@@ -73,10 +75,6 @@
 
         </script>
     </div>
-</div>
-
-<div style="margin-top: 30px">
-    @include("partials.footer")
 </div>
 
 @include("partials.endpage")

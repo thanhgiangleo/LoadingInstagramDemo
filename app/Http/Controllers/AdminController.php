@@ -14,13 +14,24 @@ class AdminController extends Controller
 //            return view('404');
     }
 
+    public function view($lang)
+    {
+        config(['app.locale' => $lang]);
+        $data = DB::table('posts')
+            ->get();
+
+        return view('admin.post-view', ['data' => $data]);
+    }
+
     public function insert($lang)
     {
+        config(['app.locale' => $lang]);
         return view('admin.post-insert');
     }
 
     public function update($lang, $slug)
     {
+        config(['app.locale' => $lang]);
         $post = DB::table('posts')
             ->where('slug', $slug)
             ->first();
@@ -52,6 +63,9 @@ class AdminController extends Controller
         $this->insertPostDB($slug, $cat_slug);
         $this->insertPostLangDB($slug, 'en', $enTitle, $enContent);
         $this->insertPostLangDB($slug, 'tha', $thaTitle, $thaContent);
+
+        $url = $_SERVER['HTTP_HOST'] . '/' . config('app.locale') . '/admin/post/';
+        header("Location: $url" ); die();
     }
 
     public function updatePostAction($id)
@@ -70,6 +84,9 @@ class AdminController extends Controller
         $this->updatePostDb($id, $slug, $cat_slug);
         $this->updatePostLangDB($oldSlug, $slug, 'en', $enTitle, $enContent);
         $this->updatePostLangDB($oldSlug, $slug, 'tha', $thaTitle, $thaContent);
+
+        $url = $_SERVER['HTTP_ORIGIN'] . '/' . config('app.locale') . '/admin/post/';
+        header("Location: $url" ); die();
     }
 
     public function getSlug($id)
@@ -116,5 +133,19 @@ class AdminController extends Controller
             ->update(['slug' => $slug,
                 'title' => $title,
                 'description' => $description]);
+    }
+
+    public function deletePostDB($slug)
+    {
+        DB::table('posts_lang')
+            ->where('slug', $slug)
+            ->delete();
+
+        DB::table('posts')
+            ->where('slug', $slug)
+            ->delete();
+
+        $url = $_SERVER['HTTP_HOST'] . '/' . config('app.locale') . '/admin/post/';
+        header("Location: $url" ); die();
     }
 }

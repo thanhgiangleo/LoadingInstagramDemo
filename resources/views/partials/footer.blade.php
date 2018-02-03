@@ -17,7 +17,7 @@
                         <div class="w3-container w3-cell w3-cell-top">
                             @endif
                             <?php $monthName = date('F', mktime(0, 0, 0, $item->month, 10)); ?>
-                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}">
+                            <a href="/{{ config('app.locale') }}/gallery/{{ $monthName . '/' .  $item->year }}">
                                 <p>{{ $monthName .  ' ' . $item->year }}</p></a>
                             @if($index % 4 == 3)
                         </div>
@@ -54,7 +54,7 @@
                         <div class="w3-container w3-cell w3-cell-top">
                             @endif
                             <?php $monthName = date('F', mktime(0, 0, 0, $item->month, 10)); ?>
-                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}">
+                            <a href="/{{ config('app.locale') }}/gallery/{{ $monthName . '/' .  $item->year }}">
                                 <p>{{ $monthName .  ' ' . $item->year }}</p></a>
                             @if($index % 4 == 3)
                         </div>

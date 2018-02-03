@@ -7,11 +7,8 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
-    private $dataFootter = '';
     public function __construct()
     {
-        $this->dataFootter = $this->getFooter();
-
 //        if(!isset($_SESSION['isADMIN']))
 //            return view('404');
     }
@@ -31,7 +28,7 @@ class PostController extends Controller
         $previousUrl= DB::table('posts')->where('id', '<', $post->id)->first();
         $nextUrl = DB::table('posts')->where('id', '>', $post->id)->first();
 
-        return view('post-detail', ['post' => $post, 'preUrl' => @$previousUrl->slug, 'nextUrl' => @$nextUrl->slug, 'dataFooter' => $this->dataFootter]);
+        return view('post-detail', ['post' => $post, 'preUrl' => @$previousUrl->slug, 'nextUrl' => @$nextUrl->slug, 'dataFooter' => $this->getFooter()]);
     }
 
     public function insert()

@@ -9,6 +9,7 @@ class InstagramController extends Controller
 {
     public function index($lang)
     {
+        config(['app.locale' => $lang]);
         $url = 'https://api.instagram.com/v1/users/2207028252/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2&count=-1&min_id=1580209093870638599_2207028252';
         $json = file_get_contents($url);
         $obj = json_decode($json);
@@ -26,7 +27,7 @@ class InstagramController extends Controller
         }
 
         $data = $this->getAll();
-        return view('ins', ['data' => $data]);
+        return view('ins', ['data' => $data, 'dataFooter' => $this->getFooter()]);
     }
 
     public function view()
@@ -34,31 +35,31 @@ class InstagramController extends Controller
         $data = DB::table('instagram')
             ->get();
 
-        return view('instagram.index', ['data' => $data]);
+        return view('admin.instagram-view', ['data' => $data, 'dataFooter' => $this->getFooter()]);
     }
 
     public function viewByMonth($lang, $monthName, $year)
     {
+        config(['app.locale' => $lang]);
         $data = DB::table('instagram')
             ->where('year', $year)
             ->where('monthName', $monthName)
             ->get();
 
-        config(['app.locale' => $lang]);
-        dump($data);
-        return view('instagram.index', ['data' => $data]);
+        return view('instagram.index', ['data' => $data, 'dataFooter' => $this->getFooter()]);
     }
 
     public function insert()
     {
-        return view('instagram.insert');
+        return view('admin.instagram-insert');
     }
 
     public function update($lang, $id)
     {
+        config(['app.locale' => $lang]);
         $data = $this->getById($id);
 
-        return view('instagram.insert', ['data' => $data]);
+        return view('admin.instagram-insert', ['data' => $data, 'dataFooter' => $this->getFooter()]);
     }
 
     public function getAll()
@@ -74,7 +75,7 @@ class InstagramController extends Controller
     {
         return DB::table('instagram')
             ->where('id', $id)
-            ->get();
+            ->first();
     }
 
     public function getByIdIns($id)
@@ -91,6 +92,36 @@ class InstagramController extends Controller
         $date = $_POST['date'];
 
         $this->insertInstagramDB($image, $link, $date);
+    }
+
+    public function updateInstagramAction($id)
+    {
+        $image = $_POST['image'];
+        $link = $_POST['link'];
+        $date = $_POST['date'];
+
+        $this->updateInstagramDB($id, $image, $link, $date);
+
+        $url = $_SERVER['HTTP_ORIGIN'] . '/' . config('app.locale') . '/admin/instagram/';
+        header("Location: $url" );
+        die();
+    }
+
+    public function updateInstagramDB($id, $image, $link, $date)
+    {
+        $arrDate = explode("/", $date);
+
+        $monthName = date('F', mktime(0, 0, 0, $arrDate[1], 10));
+
+        DB::table('instagram')
+            ->where('id', $id)
+            ->update(['image' => $image,
+                'link' => $link,
+                'day' => $arrDate[0],
+                'month' => $arrDate[1],
+                'year' => $arrDate[2],
+                'monthName' => $monthName
+                ]);
     }
 
     public function insertInstagramDB($image, $link, $date, $idIns = '')
@@ -114,8 +145,12 @@ class InstagramController extends Controller
 
     public function deleteInstagramDB($id)
     {
-        return DB::table('instagram')
+        DB::table('instagram')
             ->where('id', $id)
             ->delete();
+
+        $url = $_SERVER['HTTP_HOST'] . '/' . config('app.locale') . '/admin/instagram/';
+        header("Location: $url" );
+        die();
     }
 }

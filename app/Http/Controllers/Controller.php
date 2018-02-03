@@ -16,7 +16,7 @@ class Controller extends BaseController
         $data = DB::table('instagram')
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
-            ->select('year', 'month')->get();
+            ->select('year', 'month')->distinct()->get();
 
         return $data;
     }
