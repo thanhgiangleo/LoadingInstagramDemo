@@ -8,17 +8,20 @@
         <div class="mySlides">
             <div class="w3-cell-row">
                 @foreach ($dataFooter as $index => $item)
-                    <?php $countLength = $index; ?>
+                    @if($index > 15)
+                        @continue;
+                    @endif
 
+                    <?php $countLength = $index; ?>
                     @if($index % 4 == 0)
                         <div class="w3-container w3-cell w3-cell-top">
                             @endif
                             <?php $monthName = date('F', mktime(0, 0, 0, $item->month, 10)); ?>
-                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}"><p>{{ $monthName .  ' ' . $item->year }}</p></a>
+                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}">
+                                <p>{{ $monthName .  ' ' . $item->year }}</p></a>
                             @if($index % 4 == 3)
                         </div>
                     @endif
-                    @if($countLength > 15): @break; @endif
 
                 @endforeach
 
@@ -29,29 +32,35 @@
         </div>
     </div>
 
+    <?php $isMore = false;?>
     @if($countLength < count($dataFooter) - 1)
         <?php
-        unset($dataFooter[key($countLength)]);
+        $dataFooter = array_slice($dataFooter->toArray(), $countLength);
+        $dataFooter = (object)$dataFooter;
         $countLength = 0;
+        $isMore = true;
+
         ?>
         <div class="mySlides">
             <div class="w3-cell-row">
                 @foreach ($dataFooter as $index => $item)
+                    @if($index > 15)
+                        @continue;
+                    @endif
+
                     <?php $countLength = $index; ?>
 
                     @if($index % 4 == 0)
                         <div class="w3-container w3-cell w3-cell-top">
                             @endif
                             <?php $monthName = date('F', mktime(0, 0, 0, $item->month, 10)); ?>
-                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}"><p>{{ $monthName .  ' ' . $item->year }}</p></a>
+                            <a href="/{{ config('app.locale') }}/instagram/{{ $monthName . '/' .  $item->year }}">
+                                <p>{{ $monthName .  ' ' . $item->year }}</p></a>
                             @if($index % 4 == 3)
                         </div>
                     @endif
-                    @if($countLength > 15): @break; @endif
 
                 @endforeach
-
-
                 @if($countLength % 4 != 3)
             </div>
             @endif
@@ -59,7 +68,7 @@
 </div>
 @endif
 
-@if($countLength < count($dataFooter) - 1)
+@if($isMore)
     <button class="w3-button w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
     <button class="w3-button w3-display-right" onclick="plusDivs(1)">&#10095;</button>
     @endif
