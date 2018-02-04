@@ -25,13 +25,17 @@ class CategoryController extends Controller
     {
         config(['app.locale' => $lang]);
 
-        $category = DB::table('posts')
-            ->where('cat_slug', $category)
+        $page = 0;
+        if(isset($_GET['page'])) {
+            $page = $_GET['page'];
+        }
+
+        $posts = DB::table('posts')
             ->join('posts_lang', 'posts.slug', '=', 'posts_lang.slug')
-            ->where('posts_lang.lang', $lang)
+            ->where('posts.cat_slug', $category)
+            ->where('posts_lang.lang', $lang)->skip($page * 5)->take(5)
             ->get();
 
-        var_dump($category); die();
-//        return view('ins', ['data' => $obj->data]);
+        return view('index', ['posts' => $posts, 'page' => $page, 'dataFooter' => $this->getFooter()]);
     }
 }

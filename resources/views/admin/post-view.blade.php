@@ -1,5 +1,3 @@
-{{         trans('lang.failed') }}
-
 @include("partials/head")
 
 <body>
@@ -17,10 +15,10 @@
     <div class="w3-container" style="text-align: justify;">
         <table>
             <tr>
-                <th>Url</th>
-                <th>Category</th>
-                <th>Create Date</th>
-                <th>Option</th>
+                <th>{{ trans('lang.admin_postview_url') }}</th>
+                <th>{{ trans('lang.admin_postview_category') }}</th>
+                <th>{{ trans('lang.admin_postview_createDate') }}</th>
+                <th>{{ trans('lang.admin_postview_option') }}</th>
             </tr>
 
             @foreach($data as $item)
@@ -30,8 +28,8 @@
                     <td>{{ $item->cat_slug }}</td>
                     <td>{{ $item->create_date }}</td>
                     <td class="fake-a">
-                        <a href="update/{{ $item->slug }}" >Edit</a>
-                        <a id="slugDelete" onclick="deleteAction({{$item->slug}})" style="color: #007bff;">Delete</a>
+                        <a href="update/{{ $item->slug }}" >{{ trans('lang.edit') }}</a>
+                        <a id="slugDelete" onclick="deleteAction({{$item->slug}})" style="color: #007bff;">{{ trans('lang.delete') }}</a>
                     </td>
                 </tr>
             @endforeach

@@ -5,18 +5,19 @@
     @include("partials.header")
     @include("partials.navigation")
     @include("partials.about")
+    @include("admin.navigation")
 
     <div class="w3-container" style="margin: 0 auto; text-align: justify;">
         <div id="container">
             <div id="content">
                 <div id="main">
                     <div class="post">
-                        <h2><a href="<?php echo config('app.locale') ?>/<?php echo $post->slug ?> ">{{ $post->title }}</a></h2>
-                        <p class="date">18 <span>Jul</span></p>
+                        <h2>{{ $post->title }}</h2>
                     </div>
 
                     <ul class="meta">
-                        <li>Category : <a href="#">FOODIE</a></li>
+                        <li>{{ trans('lang.post_cate') }}<a target="_blank" href="/<?php echo config('app.locale') ?>/category/{{ $post->cat_slug }}">{{ $post->cat_slug }}</a></li>
+                        <li>{{ $post->create_date }}</li>
                     </ul>
 
                     <div class="post-content">

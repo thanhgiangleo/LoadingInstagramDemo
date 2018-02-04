@@ -1,23 +1,12 @@
-<?php
-    if(substr($_SERVER['REQUEST_URI'], 0, 4) == '/en/') {
-        $lang = 'en/';
-    }
-    else if(substr($_SERVER['REQUEST_URI'], 0, 4) == '/tha') {
-        $lang = 'tha/';
-    }
-    else {
-        $lang = '';
-    }
-?>
 <div class="row">
     <nav class="clearfix">
         <ul class="clearfix">
-            <li><a href="/<?php echo config('app.locale') ?>">Home</a></li>
-            <li><a href="/<?php echo config('app.locale') ?>/travel">Travel</a></li>
-            <li><a href="/<?php echo config('app.locale') ?>/foodie">Foodie</a></li>
-            <li><a href="/<?php echo config('app.locale') ?>/cooking">Cooking</a></li>
-            <li><a href="/<?php echo config('app.locale') ?>/lifestyle">Lifestyle</a></li>
-            <li><a href="/<?php echo config('app.locale') ?>/gallery">Gallery</a></li>
+            <li><a href="/<?php echo config('app.locale') ?>">{{ trans('lang.nav_home') }}</a></li>
+            <li><a href="/<?php echo config('app.locale') ?>/category/travel">{{ trans('lang.nav_travel') }}</a></li>
+            <li><a href="/<?php echo config('app.locale') ?>/category/foodie">{{ trans('lang.nav_foodie') }}</a></li>
+            <li><a href="/<?php echo config('app.locale') ?>/category/cooking">{{ trans('lang.nav_cooking') }}</a></li>
+            <li><a href="/<?php echo config('app.locale') ?>/category/lifestyle">{{ trans('lang.nav_lifestyle') }}</a></li>
+            <li><a href="/<?php echo config('app.locale') ?>/gallery">{{ trans('lang.nav_gallery') }}</a></li>
         </ul>
         <a href="#" id="pull">Menu</a>
     </nav>

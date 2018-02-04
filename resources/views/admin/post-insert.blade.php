@@ -14,12 +14,12 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Category</label>
-                <input type="text" id="slug" name="slug" class="form-control"  placeholder="Đường dẫn URL (ex: cham-soc-da)" <?php if(!empty($post->slug)) echo "value= '" . $post->slug . "'" ?> required>
+                <label for="exampleInputEmail1">{{ trans('lang.admin_post_url') }}</label>
+                <input type="text" id="slug" name="slug" class="form-control"  placeholder="{{ trans('lang.admin_post_url_placeholder') }}" <?php if(!empty($post->slug)) echo "value= '" . $post->slug . "'" ?> required>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputEmail1">Category</label>
+                <label for="exampleInputEmail1">{{ trans('lang.admin_post_category') }}</label>
             <select name="category" style="margin-bottom: 10px">
                 <option value="Travel" <?php if(!empty($post->cat_slug) && $post->cat_slug == "Travel") echo "selected" ?>>Travel</option>
                 <option value="Foodie" <?php if(!empty($post->cat_slug) && $post->cat_slug == "Foodie") echo "selected" ?>>Foodie</option>
@@ -33,7 +33,7 @@
             </span>
 
             <div class="form-group">
-                <input type="text" id="en-title" name="en-title" class="form-control" placeholder="Tên bài viết" <?php if(!empty($enLang->title)) echo "value= '" . $enLang->title . "'" ?>>
+                <input type="text" id="en-title" name="en-title" class="form-control" placeholder="{{ trans('lang.admin_post_title') }}" <?php if(!empty($enLang->title)) echo "value= '" . $enLang->title . "'" ?>>
             </div>
 
             <div class="form-group">
@@ -46,7 +46,7 @@
             </span>
 
             <div class="form-group">
-                <input type="text" id="tha-title" name="tha-title" class="form-control" placeholder="Tên bài viết" <?php if(!empty($thaLang->title)) echo "value= '" . $thaLang->title . "'" ?>>
+                <input type="text" id="tha-title" name="tha-title" class="form-control" placeholder="{{ trans('lang.admin_post_title') }}" <?php if(!empty($thaLang->title)) echo "value= '" . $thaLang->title . "'" ?>>
             </div>
 
             <div class="form-group">
@@ -55,7 +55,7 @@
 
             <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block btn-signin"
-                    type="submit"><?php !empty($post) ? print "Lưu thay đổi" : print "Đăng bài" ?></button>
+                    type="submit"><?php !empty($post) ? print "UPDATE" : print "ADD" ?></button>
             </div>
         </form>
 

@@ -10,19 +10,31 @@ class InstagramController extends Controller
     public function index($lang)
     {
         config(['app.locale' => $lang]);
-        $url = 'https://api.instagram.com/v1/users/2207028252/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2&count=-1&min_id=1580209093870638599_2207028252';
+
+        $client_id = env('INSTAGRAM_CLIEN_ID', '');
+        $client_secret = env('INSTAGRAM_CLIEN_SECRET', '');
+        $callback = env('INSTAGRAM_REDIRECT_URL', '');
+
+        $url = 'https://www.instagram.com/oauth/authorize/?client_id=' . $client_id . '&redirect_uri=' . $callback . '&response_type=token';
+
+        $url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2';
+//        $url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2';
         $json = file_get_contents($url);
         $obj = json_decode($json);
         $list = $obj->data;
 
         foreach ($list as $item) {
-            if(!$this->getByIdIns($item->id)) {
+            $num_like = $item->likes->count;
+
+            if (!$this->getByIdIns($item->id)) {
                 $year = date('Y', $item->created_time);
                 $month = date('m', $item->created_time);
                 $day = date('d', $item->created_time);
                 $date = $day . '/' . $month . '/' . $year;
 
-                $this->insertInstagramDB($item->images->standard_resolution->url, $item->link, $date, $item->id);
+                $this->insertInstagramDB($item->images->standard_resolution->url, $item->link, $date, $num_like, $item->id);
+            } else {
+                $this->updateLikeNumber($item->id, $num_like);
             }
         }
 
@@ -30,8 +42,10 @@ class InstagramController extends Controller
         return view('ins', ['data' => $data, 'dataFooter' => $this->getFooter()]);
     }
 
-    public function view()
+    public function view($lang)
     {
+        config(['app.locale' => $lang]);
+
         $data = DB::table('instagram')
             ->get();
 
@@ -46,11 +60,13 @@ class InstagramController extends Controller
             ->where('monthName', $monthName)
             ->get();
 
-        return view('instagram.index', ['data' => $data, 'dataFooter' => $this->getFooter()]);
+        return view('instagram.view-by-month', ['data' => $data, 'dataFooter' => $this->getFooter()]);
     }
 
-    public function insert()
+    public function insert($lang)
     {
+        config(['app.locale' => $lang]);
+
         return view('admin.instagram-insert');
     }
 
@@ -90,8 +106,9 @@ class InstagramController extends Controller
         $image = $_POST['image'];
         $link = $_POST['link'];
         $date = $_POST['date'];
+        $num_like = $_POST['like'];
 
-        $this->insertInstagramDB($image, $link, $date);
+        $this->insertInstagramDB($image, $link, $date, $num_like);
     }
 
     public function updateInstagramAction($id)
@@ -99,15 +116,16 @@ class InstagramController extends Controller
         $image = $_POST['image'];
         $link = $_POST['link'];
         $date = $_POST['date'];
+        $like = $_POST['like'];
 
-        $this->updateInstagramDB($id, $image, $link, $date);
+        $this->updateInstagramDB($id, $image, $link, $date, $like);
 
         $url = $_SERVER['HTTP_ORIGIN'] . '/' . config('app.locale') . '/admin/instagram/';
-        header("Location: $url" );
+        header("Location: $url");
         die();
     }
 
-    public function updateInstagramDB($id, $image, $link, $date)
+    public function updateInstagramDB($id, $image, $link, $date, $like)
     {
         $arrDate = explode("/", $date);
 
@@ -120,11 +138,20 @@ class InstagramController extends Controller
                 'day' => $arrDate[0],
                 'month' => $arrDate[1],
                 'year' => $arrDate[2],
-                'monthName' => $monthName
-                ]);
+                'monthName' => $monthName,
+                'num_like' => $like
+            ]);
     }
 
-    public function insertInstagramDB($image, $link, $date, $idIns = '')
+    public function updateLikeNumber($id, $num_like)
+    {
+        DB::table('instagram')
+            ->where('idInstagram', $id)
+            ->update(['num_like' => $num_like
+            ]);
+    }
+
+    public function insertInstagramDB($image, $link, $date, $num_like, $idIns = '')
     {
         $arrDate = explode("/", $date);
         $create_date = Carbon::now();
@@ -139,7 +166,8 @@ class InstagramController extends Controller
             'month' => $arrDate[1],
             'year' => $arrDate[2],
             'create_date' => $create_date,
-            'monthName' => $monthName
+            'monthName' => $monthName,
+            'num_like' => $num_like
         ]);
     }
 
@@ -150,7 +178,7 @@ class InstagramController extends Controller
             ->delete();
 
         $url = $_SERVER['HTTP_HOST'] . '/' . config('app.locale') . '/admin/instagram/';
-        header("Location: $url" );
+        header("Location: $url");
         die();
     }
 }

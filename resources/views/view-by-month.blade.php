@@ -1,5 +1,5 @@
 {{         trans('lang.failed') }}
-
+<?php var_dump($data);die(); ?>
 @include("partials/head")
 
 <link rel="stylesheet" href="/css/animate.css">
@@ -100,24 +100,17 @@
     @include("partials.header")
     @include("partials.navigation")
     @include("partials.about")
+    @include("admin.navigation")
 
     <div class="w3-container" style="margin: 0 auto; text-align: justify;">
         <?php
-        $year = 0;
-        $month = 0;
+            var_dump($data);die();
+        $year = $data[0]->year;
+        $month = $data[0]->month;
+        $monthName = date('F', mktime(0, 0, 0, $month, 10));
         ?>
 
         @for($i = 0; $i < count($data); $i++)
-            <?php
-            $oldUrl = '';
-
-            abc:
-            $carouselId = $data[$i]->id;
-            $year = $data[$i]->year;
-            $month = $data[$i]->month;
-            $monthName = date('F', mktime(0, 0, 0, $month, 10));
-
-            ?>
 
             <div id="fh5co-intro-section">
                 <div class="container">
@@ -135,52 +128,27 @@
                     <div class="row text-center">
 
                         <div class="carousel " data-ride="carousel" data-type="multi" data-interval="false"
-                             id="myCarousel<?php echo $carouselId ?>">
+                             id="myCarousel">
                             <div class="carousel-inner">
-                                <?php $count = 0; ?>
-                                @for($j = $i; $j < count($data); $j++)
+                                <div class="item active">
                                     <?php
-                                    $item_year = $data[$j]->year;
-                                    $item_month = $data[$j]->month;
-                                    $i = $j;
-                                    if($item_year != $year || $item_month != $month):
-                                    $i = $j; ?>
-                            </div>
+                                    $link_app = str_replace('https://www.instagram.com/', 'instagram://', $data[$i]->link);
 
-                            <?php if($count > 3) : ?>
-                            <a class="left carousel-control" href="#myCarousel<?php echo $carouselId ?>"
-                               data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                            <a class="right carousel-control" href="#myCarousel<?php echo $carouselId ?>"
-                               data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                            <?php endif; ?>
-                        </div>
+                                    ?>
 
-                        <?php
-                        goto abc;
-                        endif;
-                        ?>
+                                    <div class="col-md-4">
+                                        <!--                                --><?php //dump($data[$j]->image);  ?>
+                                        <a href='<?php echo $data[$i]->image; ?>'
+                                           data-link="<?php echo $data[$i]->link?>" data-link-app="<?php echo $link_app ?>"
+                                           class="grid-photo img-popup"
+                                           style="background-image: url('<?php echo $data[$j]->image ?>'); min-width: 300px">
 
-                        <?php if($oldUrl != $data[$j]->image): ?>
-                        <div class="item <?php if ($count == 0) echo 'active' ?>">
-                            <?php
-                            $count++;
-                            $oldUrl = $data[$j]->image;
-                            $link_app = str_replace('https://www.instagram.com/', 'instagram://', $data[$j]->link);
-
-                            ?>
-
-                            <div class="col-md-4">
-                                <!--                                --><?php //dump($data[$j]->image);  ?>
-                                <a href='<?php echo $data[$j]->image; ?>'
-                                   data-link="<?php echo $data[$j]->link?>" data-link-app="<?php echo $link_app ?>"
-                                   class="grid-photo img-popup"
-                                   style="background-image: url('<?php echo $data[$j]->image ?>'); min-width: 300px">
-
-                                </a>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <?php endif; ?>
-                        @endfor
+
                     </div>
                 </div>
             </div>

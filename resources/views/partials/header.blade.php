@@ -3,9 +3,9 @@
         <div class="row">
             <div class="col-lg-3 col-xl-3 col-md-6 col-xs-6 col-sm-6">
                 <div class="subscribe">
-                    <p>SUBSCRIBE</p>
-                    <input type="email" placeholder="Your Email" /><br>
-                    <input type="button" value="Yes, I'm in" /><br>
+                    <p>{{ trans('lang.header_subcrible') }}</p>
+                    <input type="email" placeholder="{{ trans('lang.header_email') }}" /><br>
+                    <input type="button" value="{{ trans('lang.header_emailBtn') }}" /><br>
                     <form action="">
                         <input type="radio" name="lang" onclick="handleClick(this);" value="en" <?php if(config('app.locale') == 'en') echo 'checked' ?>>
                         <img src="{{ asset("images/uk.png") }}">
@@ -26,7 +26,7 @@
                 <div class="social">
                     <form action="mailto:">
                         <button>
-                            <span class="icon icon-envelope"> Email me</span>
+                            <span class="icon icon-envelope"> {{ trans('lang.header_emailMe') }}</span>
                         </button>
                     </form>
                     <br>

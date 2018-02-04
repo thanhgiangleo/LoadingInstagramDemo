@@ -12,19 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/en');
 });
 
+Route::get('/login', 'HomeController@login');
+Route::post('/loginAction', 'HomeController@loginAction');
+Route::get('/logoutAction', 'HomeController@logoutAction');
 
 Route::get('/{lang}', 'CategoryController@index');
 
 Route::get('/{lang}/gallery', 'InstagramController@index');
 Route::get('{lang}/gallery/{monthName}/{year}', 'InstagramController@viewByMonth');
 
-Route::get('/{lang}/category/{category}', 'CategoryController@index');
-
-Route::get('/login', 'HomeController@login');
-Route::post('/login', 'HomeController@login');
+Route::get('/{lang}/category/{category}', 'CategoryController@category');
 
 Route::get('/{lang}/admin/post/', 'AdminController@view');
 Route::get('/{lang}/admin/post/insert', 'AdminController@insert');

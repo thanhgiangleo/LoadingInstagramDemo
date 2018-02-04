@@ -12,11 +12,11 @@ class HomeController extends Controller
 
     public function login()
     {
-        if(isset($_POST))
-        {
-            return view('admin.login');
-        }
+        return view('admin.login');
+    }
 
+    public function loginAction()
+    {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -26,11 +26,19 @@ class HomeController extends Controller
         if($username == $correctUsername && $password == $correctPassword)
         {
             $_SESSION['isADMIN'] = true;
-            return redirect('/ins');
+            return redirect('/en');
         }
         else
         {
             return redirect('/login');
         }
+    }
+
+    public function logoutAction()
+    {
+        if(isset($_SESSION['isADMIN']))
+            $_SESSION['isADMIN'] = false;
+
+        return redirect('/en');
     }
 }
