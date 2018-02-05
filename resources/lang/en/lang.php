@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'failed' => 'english ne',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+//    'failed' => 'english ne',
+//    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
     'edit' => 'Edit',
     'delete' => 'Delete',

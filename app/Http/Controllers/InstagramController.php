@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class InstagramController extends Controller
 {
@@ -39,7 +40,27 @@ class InstagramController extends Controller
         }
 
         $data = $this->getAll();
-        return view('ins', ['data' => $data, 'dataFooter' => $this->getFooter()]);
+
+        $firstMonth = null;
+        $secondMonth = null;
+
+        if (isset($data[count($data) - 1])) {
+            $item = $data[count($data) - 1];
+            $firstMonth = DB::table('instagram')
+                ->where('year', $item->year)
+                ->where('month', $item->month)
+                ->get();
+
+            if (isset($data[count($data) - 2])) {
+                $item = $data[count($data) - 2];
+                $secondMonth = DB::table('instagram')
+                    ->where('year', $item->year)
+                    ->where('month', $item->month)
+                    ->get();
+            }
+        }
+
+        return view('instagram.index', ['data' => $data, 'dataFooter' => $this->getFooter(), 'firstMonth' => $firstMonth, 'secondMonth' => $secondMonth]);
     }
 
     public function view($lang)
