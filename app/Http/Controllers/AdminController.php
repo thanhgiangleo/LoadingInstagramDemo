@@ -17,10 +17,17 @@ class AdminController extends Controller
     public function view($lang)
     {
         config(['app.locale' => $lang]);
+        $page = 0;
+
+        if(isset($_GET['page'])) {
+            $page = $_GET['page'];
+        }
+
         $data = DB::table('posts')
+            ->skip($page * 20)->take(20)
             ->get();
 
-        return view('admin.post-view', ['data' => $data]);
+        return view('admin.post-view', ['data' => $data, 'page' => $page]);
     }
 
     public function insert($lang)

@@ -18,7 +18,7 @@ class InstagramController extends Controller
 
         $url = 'https://www.instagram.com/oauth/authorize/?client_id=' . $client_id . '&redirect_uri=' . $callback . '&response_type=token';
 
-        $url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2';
+        $url = env('INSTAGRAM_STRING_CONNECT');
 //        $url = 'https://api.instagram.com/v1/users/self/media/recent/?access_token=2207028252.6dd3f5d.8ee1b837794843389924fb27561c3fb2';
         $json = file_get_contents($url);
         $obj = json_decode($json);
@@ -66,11 +66,19 @@ class InstagramController extends Controller
     public function view($lang)
     {
         config(['app.locale' => $lang]);
+        $page = 0;
+
+        if(isset($_GET['page'])) {
+            $page = $_GET['page'];
+        }
 
         $data = DB::table('instagram')
+            ->orderBy('year', 'desc')
+            ->orderBy('month', 'desc')
+            ->skip($page * 20)->take(20)
             ->get();
 
-        return view('admin.instagram-view', ['data' => $data, 'dataFooter' => $this->getFooter()]);
+        return view('admin.instagram-view', ['data' => $data, 'dataFooter' => $this->getFooter(), 'page' => $page]);
     }
 
     public function viewByMonth($lang, $monthName, $year)
