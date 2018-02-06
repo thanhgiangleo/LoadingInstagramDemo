@@ -140,6 +140,7 @@
 					vertical-align: middle;
 					height: 380px;
 					width: 100%;
+					min-width: 380px;
 				}
 
 				.gallery .content .media:hover img {

@@ -32,12 +32,14 @@
 
                     ?>
                     <div class="media">
+                        <span style="position: absolute; margin: 20px; padding: 5px 10px; z-index: 99999; background: #fff; border-radius: 10px; right: 0; bottom: 0;">
+                            <i class="fa fa-heart" style="color: red"></i> {{$item->num_like}} likes</span>
                         <a href="<?php echo $item->image; ?>"><img
                                     src="<?php echo $item->image; ?>"
                                     alt=""
                                     data-link="<?php echo $item->link; ?>"
                                     data-linkapp="<?php echo $link_app; ?>"
-                                    title="-.-"/></a>
+                                    title="{{$item->num_like}} likes"/></a>
                     </div>
                 @endforeach
                 <script type="text/javascript">
