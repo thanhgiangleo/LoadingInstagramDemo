@@ -33,7 +33,33 @@
                     </td>
                 </tr>
             @endforeach
+
+            <div style="padding-left: 300px; padding-top: 50px; width: 100%">
+                <ul class="pagination">
+                    @if($page > 0)
+                        <li><a href="?page={{$page - 1}}" style="padding: 0 10px;">{{$page}}</a></li>
+                    @endif
+                    <li><a href="?page={{$page}}" style="padding: 0 10px; color: midnightblue">{{ $page + 1 }}</a></li>
+
+                    @if(count($data) > 0)
+                        <li><a href="?page={{$page +1}}" style="padding: 0 10px;">{{$page + 2}}</a>
+                    @endif
+                </ul>
+            </div>
         </table>
+
+        <div style="padding-left: 300px; padding-top: 50px; width: 100%">
+            <ul class="pagination">
+                @if($page > 0)
+                    <li><a href="?page={{$page - 1}}" style="padding: 0 10px;">{{$page}}</a></li>
+                @endif
+                <li><a href="?page={{$page}}" style="padding: 0 10px; color: midnightblue">{{ $page + 1 }}</a></li>
+
+                @if(count($data) > 0)
+                    <li><a href="?page={{$page +1}}" style="padding: 0 10px;">{{$page + 2}}</a>
+                @endif
+            </ul>
+        </div>
     </div>
 </div>
 

@@ -30,21 +30,23 @@
                         </button>
                     </form>
                     <br>
-                    <a href="#">
-                        <span id="span-social" class="icon icon-instagram"></span>
+                    <a href="{{ env('INSTAGRAM_URL') }}" target="_blank" style="text-decoration: none">
+                        <span id="span-social" class="icon icon-instagram fa fa-instagram"></span>
                     </a>
-                    <a href="#">
-                        <span id="span-social" class="icon icon-facebook"></span>
+                    <a href="{{ env('FACEBOOK_URL') }}" target="_blank" style="text-decoration: none">
+                        <span id="span-social" class="icon icon-facebook fa fa-facebook"></span>
                     </a>
-                    <a href="#">
-                        <span id="span-social" class="icon icon-youtube-sign"></span>
+                    <a href="{{ env('YOUTUBE_URL') }}" target="_blank" style="text-decoration: none">
+                        <span id="span-social" class="icon icon-youtube-sign fa fa-youtube-play"></span>
                     </a>
                     <br>
 
+                    @if($_SERVER['REQUEST_URI'] == '/tha' || $_SERVER['REQUEST_URI'] == '/en' || (strpos($_SERVER['REQUEST_URI'], '/category/') > 0))
                     <form action="" role="search" class="search-form">
                         <input type="submit" value="" class="search-submit">
                         <input type="search" name="q" class="search-text" placeholder="Search..." autocomplete="off">
                     </form>
+                    @endif
                 </div>
             </div>
         </div>
